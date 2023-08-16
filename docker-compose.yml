@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: postgresql-db
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=book-service-db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  service:
+    container_name: book-service
+    build: ./
+    environment:
+      - POSTGRES_DB_URL=db:5432/book-service-db
+      - POSTGRES_DB_USERNAME=user
+      - POSTGRES_DB_PASSWORD=pass
+    ports:
+      - '8080:8080'
+
+volumes:
+  db:
+    driver: local

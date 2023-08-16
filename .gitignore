@@ -28,3 +28,9 @@ replay_pid*
 
 # Gradle
 .gradle
+
+# JEnv file
+.java-version
+
+# Build folder
+build

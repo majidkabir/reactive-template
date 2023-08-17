@@ -3,6 +3,9 @@ package com.majid.reactivetemplate.route;
 import com.majid.reactivetemplate.dto.BookDto;
 import com.majid.reactivetemplate.handler.BookHandler;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -26,8 +29,8 @@ import java.lang.annotation.Target;
                 beanClass = BookHandler.class,
                 beanMethod = "saveBook",
                 operation = @Operation(
-                        operationId = "event",
-                        description = "Storing the audit event",
+                        operationId = "saveBook",
+                        description = "Storing the book information",
                         tags = "book",
                         requestBody =
                                 @RequestBody(
@@ -36,7 +39,6 @@ import java.lang.annotation.Target;
                                         content = @Content(
                                                 schema = @Schema(
                                                         implementation = BookDto.class,
-
                                                         requiredProperties = {"title", "author"}))),
                         responses = {
                                 @ApiResponse(
@@ -45,6 +47,61 @@ import java.lang.annotation.Target;
                                         content = @Content(
                                                 mediaType = MediaType.APPLICATION_JSON_VALUE,
                                                 schema = @Schema(implementation = BookDto.class)))
+                        })),
+        @RouterOperation(
+                path = "/book/{id}",
+                method = RequestMethod.GET,
+                beanClass = BookHandler.class,
+                beanMethod = "findBook",
+                operation = @Operation(
+                        operationId = "findBook",
+                        description = "Finding a book by ID",
+                        tags = "book",
+                        parameters = {
+                                @Parameter(
+                                        name = "id",
+                                        description = "Unique ID of a book in the system.",
+                                        in = ParameterIn.PATH,
+                                        required = true)
+                        },
+                        responses = {
+                                @ApiResponse(
+                                        responseCode = "200",
+                                        description = "Book information",
+                                        content = @Content(
+                                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                                schema = @Schema(implementation = BookDto.class)))
+                        })),
+        @RouterOperation(
+                path = "/book",
+                method = RequestMethod.GET,
+                beanClass = BookHandler.class,
+                beanMethod = "findBooks",
+                operation = @Operation(
+                        operationId = "findBooks",
+                        description = "Querying all books",
+                        tags = "book",
+                        parameters = {
+                                @Parameter(
+                                        name = "title",
+                                        description = "Title of the book",
+                                        in = ParameterIn.QUERY),
+                                @Parameter(
+                                        name = "author",
+                                        description = "Author of the book",
+                                        in = ParameterIn.QUERY),
+                                @Parameter(
+                                        name = "publisher",
+                                        description = "Publisher of the book",
+                                        in = ParameterIn.QUERY)
+                        },
+                        responses = {
+                                @ApiResponse(
+                                        responseCode = "200",
+                                        description = "Book information",
+                                        content = @Content(
+                                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                                array = @ArraySchema(schema = @Schema(implementation = BookDto.class))))
                         }))
 })
 

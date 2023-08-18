@@ -21,7 +21,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 
 @WebFluxTest
-@Import({RouterConfig.class, BookHandler.class, BookMapper.class, ValidatorConfig.class})
+@Import({RouterConfig.class, BookHandler.class, ValidatorConfig.class})
 class BookHandlerTest {
 
     @MockBean

@@ -6,6 +6,7 @@ A template for a reactive spring-boot application that contains the below list
 3. Using test container in integration test that handles migration of DB with flyway
 4. Spring validation by annotation
 5. OpenAPI and Swagger
+6. MapStruct
 
 # Building docker and staring the service with DB
 >./gradlew bootBuildImage && docker compose up -d

@@ -6,6 +6,8 @@ import com.majid.reactivetemplate.model.Book;
 import com.majid.reactivetemplate.service.BookService;
 import com.majid.reactivetemplate.validation.ValidationHandler;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -18,8 +20,8 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class BookHandler {
 
+    private final BookMapper bookMapper = Mappers.getMapper(BookMapper.class);
     private final BookService bookService;
-    private final BookMapper bookMapper;
     private final ValidationHandler<BookDto> bookValidation;
 
     public Mono<ServerResponse> saveBook(ServerRequest request) {

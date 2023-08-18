@@ -4,7 +4,7 @@ A template for a reactive spring-boot application that contains the below list
 1. Handling web request with RouterFunction
 2. R2DBC for project and JDBC for flyway
 3. Using test container in integration test that handles migration of DB with flyway
-4. Spring validation by annotation
+4. Validation by annotation
 5. OpenAPI and Swagger
 6. MapStruct
 

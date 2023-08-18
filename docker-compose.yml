@@ -16,7 +16,7 @@ services:
 
   service:
     container_name: book-service
-    build: ./
+    image: reactive-template:0.0.1-SNAPSHOT
     environment:
       - POSTGRES_DB_URL=db:5432/book-service-db
       - POSTGRES_DB_USERNAME=user

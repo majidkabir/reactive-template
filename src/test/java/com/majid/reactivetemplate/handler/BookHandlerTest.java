@@ -4,6 +4,7 @@ import com.majid.reactivetemplate.mapper.BookMapper;
 import com.majid.reactivetemplate.model.Book;
 import com.majid.reactivetemplate.route.RouterConfig;
 import com.majid.reactivetemplate.service.BookService;
+import com.majid.reactivetemplate.validation.ValidatorConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 
 @WebFluxTest
-@Import({RouterConfig.class, BookHandler.class, BookMapper.class})
+@Import({RouterConfig.class, BookHandler.class, BookMapper.class, ValidatorConfig.class})
 class BookHandlerTest {
 
     @MockBean

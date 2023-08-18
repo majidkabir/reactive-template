@@ -34,3 +34,6 @@ replay_pid*
 
 # Build folder
 build
+
+# Local env file
+.env

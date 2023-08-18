@@ -4,6 +4,7 @@ import com.majid.reactivetemplate.dto.BookDto;
 import com.majid.reactivetemplate.mapper.BookMapper;
 import com.majid.reactivetemplate.model.Book;
 import com.majid.reactivetemplate.service.BookService;
+import com.majid.reactivetemplate.validation.ValidationHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,18 +20,19 @@ public class BookHandler {
 
     private final BookService bookService;
     private final BookMapper bookMapper;
+    private final ValidationHandler<BookDto> bookValidation;
 
     public Mono<ServerResponse> saveBook(ServerRequest request) {
-        return request
-                .bodyToMono(BookDto.class)
-                .map(bookMapper::fromDto)
-                .flatMap(bookService::save)
-                .map(bookMapper::toDto)
-                .transform(bookDtoMono ->
-                        ServerResponse
-                                .status(HttpStatus.CREATED)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(bookDtoMono, BookDto.class));
+        return bookValidation.handle(request, validatedDto ->
+            bookService
+                    .save(bookMapper.fromDto(validatedDto))
+                    .map(bookMapper::toDto)
+                    .flatMap(bookDto ->
+                            ServerResponse
+                                    .status(HttpStatus.CREATED)
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .bodyValue(bookDto)
+                    ));
     }
 
     public Mono<ServerResponse> findBook(ServerRequest request) {

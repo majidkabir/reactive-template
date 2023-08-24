@@ -1,5 +1,6 @@
 package com.majid.reactivetemplate.validation;
 
+import com.majid.reactivetemplate.exception.InvalidParameterException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -22,9 +23,7 @@ public class ValidationHandler<T> {
                     this.validator.validate(dto, errors);
 
                     if (errors.hasFieldErrors()) {
-                        return ServerResponse.badRequest().bodyValue(
-                                errors.getFieldErrors().stream()
-                                        .map(e -> e.getField() + " " + e.getDefaultMessage()));
+                        return Mono.error(new InvalidParameterException(errors.getFieldErrors()));
                     }
 
                     return next.handle(dto);

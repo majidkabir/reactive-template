@@ -6,7 +6,6 @@ import com.majid.reactivetemplate.model.Book;
 import com.majid.reactivetemplate.service.BookService;
 import com.majid.reactivetemplate.validation.ValidationHandler;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

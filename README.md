@@ -8,8 +8,13 @@ A template for a reactive spring-boot application that contains the below list
 5. OpenAPI and Swagger
 6. MapStruct
 
-# Building docker and staring the service with DB
->./gradlew bootBuildImage && docker compose up -d
+# Building docker
+>./gradlew bootBuildImage
+
+# Starting the application
+>./gradlew bootRun
+
+This command will spin up the DB by starting the docker-compose file and after that run the application.
 
 # Swagger UI
 http://localhost:8080/webjars/swagger-ui/index.html
